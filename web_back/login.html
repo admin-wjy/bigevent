@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="css/reset.css">
     <link rel="stylesheet" type="text/css" href="css/iconfont.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" href="./js/bootstrap/css/bootstrap.min.css">
 </head>
 
 <body>
@@ -29,8 +30,112 @@
             </form>
         </div>
 
-    </div> 
+    </div>
 
+    <!-- -------------------模态框----------------------- -->
+    <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm">Small modal</button>
+    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    请输入完整的用户名或密码
+                </div>
+            </div>
+        </div> -->
+
+        <div class="modal fade" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <h4 class="modal-title">提示</h4>
+                    </div>
+                    <div class="modal-body">
+                      <p>请输入完整的用户名或密码</p>
+                    </div>
+                   
+                  </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+              </div><!-- /.modal -->
 </body>
 
 </html>
+<script src="./js/jquery-1.12.4.min.js"></script>
+<script src="./js/bootstrap/js/bootstrap.min.js"></script>
+<script>
+    //  https://autumnfish.cn/big/admin/login
+
+    // $(function () {
+    //     $('form').submit(function (e) {
+    //         e.preventDefault()
+    //     })
+    //     $('.input_sub').click(function () {
+    //         var user_name = $('.input_txt').val().trim()
+    //         var password = $('.input_pass').val().trim()
+    //         if (user_name == '' || password == '') {
+    //             $('.modal').modal()
+
+
+    //             return
+    //         } 
+
+    //             $.ajax({
+    //                 url: 'https://autumnfish.cn/big/admin/login',
+    //                 type: 'post',
+    //                 data: {
+    //                     user_name: user_name,
+    //                     password: password
+    //                 },
+    //                 success: function (data) {
+    //                     console.log(data);
+    //                     if (data.code == 200) {
+    //                         window.location.href = './index.html'
+    //                     } else if (data.code == 400) {
+    //                         $('.modal-body p').text('请输入正确的用户名跟密码')
+
+    //                         $('.modal').modal()
+
+    //                     }
+    //                 }
+    //             })
+
+    //     })
+    // })
+
+
+
+
+
+    $(function () {
+        $('form').submit(function (e) {
+            e.preventDefault()
+        })
+        $('.input_sub').click(function () {
+            var userName = $('.input_txt').val()
+            var password = $('.input_pass').val()
+            if (userName == '' || password == '') {
+                $('.modal').modal()
+                return
+            }
+            $.ajax({
+                url:'https://autumnfish.cn/big/admin/login',
+                type:'post',
+                data:{
+                    user_name:userName,
+                    password:password
+                },
+                success:function(backData) {
+                    // console.log(backData);   
+                    if(backData.code == 200) {
+                        window.location.href = './index.html'
+                    }else if(backData.code == 400) {
+                        $('.modal-body p').text('用户名或密码错误')
+                        $('.modal').modal()
+                    }
+                    
+                }
+            })
+
+
+        })
+    })
+</script>
